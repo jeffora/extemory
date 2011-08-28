@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Extemory", "Extemory\Extemory.csproj", "{D2591888-B432-4664-9403-EC15D9C0F67D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Extemory.Tests", "Extemory.Tests\Extemory.Tests.csproj", "{E04AEE9A-EEFF-4E23-A168-C341505E5CA3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D2591888-B432-4664-9403-EC15D9C0F67D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D2591888-B432-4664-9403-EC15D9C0F67D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D2591888-B432-4664-9403-EC15D9C0F67D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D2591888-B432-4664-9403-EC15D9C0F67D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E04AEE9A-EEFF-4E23-A168-C341505E5CA3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E04AEE9A-EEFF-4E23-A168-C341505E5CA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E04AEE9A-EEFF-4E23-A168-C341505E5CA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E04AEE9A-EEFF-4E23-A168-C341505E5CA3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
