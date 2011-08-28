@@ -64,7 +64,6 @@
     <Compile Include="ProcessModuleExtensions.cs" />
     <Compile Include="ProcessStartInfoExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Test.cs" />
     <Compile Include="Win32\Enums.cs" />
     <Compile Include="Win32\Imports.cs" />
     <Compile Include="Win32\Structs.cs" />
