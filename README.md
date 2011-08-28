@@ -9,6 +9,9 @@ Currently Extemory is capable of performing the following tasks:
   * Execute exported functions on injected DLL
 * Detour native functions with .NET delegates in local process
 
+## License
+Extemory is licensed under the FreeBSD or Simplified BSD License.
+
 ## Examples
 ### Local Read/Write
 
