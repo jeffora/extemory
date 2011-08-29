@@ -11,6 +11,7 @@ Currently Extemory is capable of performing the following tasks:
 
 ## License
 Extemory is licensed under the FreeBSD or Simplified BSD License.
+All external libraries are licensed under their respective licenses.
 
 ## Examples
 ### Local Read/Write
