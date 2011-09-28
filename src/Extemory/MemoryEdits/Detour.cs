@@ -44,56 +44,40 @@ namespace Extemory.MemoryEdits
 
         public void Apply()
         {
-            using (var writer = new StreamWriter(new FileStream(@"d:\Detour.log", FileMode.Create, FileAccess.Write)))
+
+            if (IsApplied)
+                return;
+
+            // TODO: handle this situation
+            if (_trampoline != IntPtr.Zero)
+                throw new InvalidOperationException("Trampoline was not correctly freed");
+
+            _trampoline = Process.GetCurrentProcess()
+                .Allocate(IntPtr.Zero, JumpSize * 3, memoryProtection: MemoryProtection.ExecuteReadWrite);
+            var pTramp = _trampoline;
+
+            // dissassemble from target address
+            // moving JumpSize bytes to trampoline
+            var instrByteCount = 0;
+            foreach (var instr in _targetAddr.Disassemble())
             {
-                
-            
-                if (Debugger.IsAttached)
-                    Debugger.Break();
+                // TODO: work out jumps
+                pTramp.WriteArray(instr.InstructionData);
+                pTramp += instr.Length;
+                instrByteCount += instr.Length;
 
-                if (IsApplied)
-                    return;
-
-                // TODO: handle this situation
-                if (_trampoline != IntPtr.Zero)
-                    throw new InvalidOperationException("Trampoline was not correctly freed");
-
-                _trampoline = Process.GetCurrentProcess()
-                    .Allocate(IntPtr.Zero, JumpSize*3, memoryProtection: MemoryProtection.ExecuteReadWrite);
-                var pTramp = _trampoline;
-
-                writer.WriteLine("_trampoline = {0:X}", _trampoline.ToInt32());
-                writer.WriteLine("_targetAddr = {0:X}", _targetAddr.ToInt32());
-                writer.WriteLine("_hookAddr = {0:X}", _hookAddr.ToInt32());
-
-                // dissassemble from target address
-                // moving JumpSize bytes to trampoline
-                var instrByteCount = 0;
-                foreach (var instr in _targetAddr.Disassemble())
-                {
-                    // TODO: work out jumps
-                    pTramp.WriteArray(instr.InstructionData);
-                    pTramp += instr.Length;
-                    instrByteCount += instr.Length;
-
-                    // We now have enough data, stop disassembling
-                    if (instrByteCount >= JumpSize)
-                        break;
-                }
-
-                writer.WriteLine("orig = {0}", BitConverter.ToString(_original.ToArray()));
-
-                // write a jmp instruction from trampoline back to function
-                WriteJump(pTramp, _targetAddr + instrByteCount);
-
-                // Write jump from target to detour
-                WriteJump(_targetAddr, _hookAddr);
-
-                writer.WriteLine("after jump = {0}", BitConverter.ToString(_targetAddr.ReadArray<byte>(5)));
-
-                IsApplied = true;
-
+                // We now have enough data, stop disassembling
+                if (instrByteCount >= JumpSize)
+                    break;
             }
+
+            // write a jmp instruction from trampoline back to function
+            WriteJump(pTramp, _targetAddr + instrByteCount);
+
+            // Write jump from target to detour
+            WriteJump(_targetAddr, _hookAddr);
+
+            IsApplied = true;
         }
 
         public void Remove()

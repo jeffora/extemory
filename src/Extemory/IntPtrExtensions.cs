@@ -380,10 +380,6 @@ namespace Extemory
         public static Detour<T> DetourWith<T>(this IntPtr addr, T del) where T : class
         {
             var manager = MemoryEditManager.ForProcess(Process.GetCurrentProcess());
-            if (manager[addr] != null)
-            {
-                manager[addr] = null;
-            }
             var detour = new Detour<T>(addr, del);
             manager[addr] = detour;
             detour.Apply();
