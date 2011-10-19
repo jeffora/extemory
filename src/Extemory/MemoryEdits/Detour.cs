@@ -96,9 +96,6 @@ namespace Extemory.MemoryEdits
 
         public object CallOriginal(params object[] args)
         {
-            if (Debugger.IsAttached)
-                Debugger.Break();
-
             object ret;
             if (IsApplied)
             {
