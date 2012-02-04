@@ -94,25 +94,19 @@ namespace Extemory.MemoryEdits
 
         #endregion
 
-        public object CallOriginal(params object[] args)
+        public T CallOriginal
         {
-            if (Debugger.IsAttached)
-                Debugger.Break();
-
-            object ret;
-            if (IsApplied)
+            get
             {
-                if (_trampoline == IntPtr.Zero)
-                    throw new InvalidOperationException("No trampoline has been allocated - something has gone wrong");
+                if (IsApplied)
+                {
+                    if (_trampoline == IntPtr.Zero)
+                        throw new InvalidOperationException("No trampoline has been allocated - something has gone wrong");
 
-                var tramDel = _trampoline.ToDelegate<T>();
-                ret = ((Delegate) (object) tramDel).DynamicInvoke(args);
+                    return _trampoline.ToDelegate<T>();
+                }
+                return _targetDelegate;
             }
-            else
-            {
-                ret = ((Delegate) (object) _targetDelegate).DynamicInvoke(args);
-            }
-            return ret;
         }
 
         #region IDisposable
