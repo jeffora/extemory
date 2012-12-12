@@ -43,7 +43,7 @@ namespace Extemory.MemoryEdits
         {
             foreach (var edit in Edits)
             {
-                Dispose();
+                edit.Dispose();
             }
             _applicationEdits.Clear();
         }
